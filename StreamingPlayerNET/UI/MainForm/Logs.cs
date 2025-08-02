@@ -1,6 +1,7 @@
 using System.Drawing;
 using NLog;
 using StreamingPlayerNET.Services;
+using StreamingPlayerNET.Common.Models;
 
 namespace StreamingPlayerNET.UI;
 
@@ -90,32 +91,12 @@ public partial class MainForm
         item.SubItems.Add(entry.LoggerName);
         item.SubItems.Add(entry.Message);
         
-        // Color code based on log level
-        if (entry.Level == NLog.LogLevel.Error)
-        {
-            item.BackColor = Color.LightCoral;
-            item.ForeColor = Color.DarkRed;
-        }
-        else if (entry.Level == NLog.LogLevel.Warn)
-        {
-            item.BackColor = Color.LightYellow;
-            item.ForeColor = Color.DarkOrange;
-        }
-        else if (entry.Level == NLog.LogLevel.Info)
-        {
-            item.BackColor = Color.LightBlue;
-            item.ForeColor = Color.DarkBlue;
-        }
-        else if (entry.Level == NLog.LogLevel.Debug)
-        {
-            item.BackColor = Color.LightGray;
-            item.ForeColor = Color.DarkGray;
-        }
-        else if (entry.Level == NLog.LogLevel.Trace)
-        {
-            item.BackColor = Color.White;
-            item.ForeColor = Color.Black;
-        }
+        // Get current theme for color selection
+        var currentTheme = ConfigurationService.Current.Theme;
+        
+        // Color code based on log level using theme-aware colors
+        item.BackColor = ThemeService.GetLogLevelBackground(entry.Level, currentTheme);
+        item.ForeColor = ThemeService.GetLogLevelForeground(entry.Level, currentTheme);
         
         // Add to the beginning of the list to show newest first
         logsListView.Items.Insert(0, item);

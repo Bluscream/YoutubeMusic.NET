@@ -42,6 +42,9 @@ public partial class MainForm
             // Apply theme
             ApplyTheme(config.Theme);
             
+            // Refresh ListView colors to match the applied theme
+            RefreshAllListViewColors();
+            
             Logger.Debug("Configuration applied successfully");
         }
         catch (Exception ex)
@@ -77,6 +80,9 @@ public partial class MainForm
             
             // Apply the new theme
             ApplyTheme(config.Theme);
+            
+            // Refresh ListView colors to match the new theme
+            RefreshAllListViewColors();
             
             // Update menu state
             UpdateThemeMenuState();

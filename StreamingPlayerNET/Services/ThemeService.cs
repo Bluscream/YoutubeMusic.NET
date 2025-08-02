@@ -493,6 +493,150 @@ public static class ThemeService
                 break;
         }
     }
+
+    // Theme-aware color methods for listview items and other UI elements
+    public static Color GetListViewItemBackground(AppTheme theme)
+    {
+        switch (theme)
+        {
+            case AppTheme.Dark:
+                return DarkColors.ListViewBackground;
+            case AppTheme.Black:
+                return BlackColors.ListViewBackground;
+            default: // AppTheme.Light
+                return LightColors.ListViewBackground;
+        }
+    }
+
+    public static Color GetListViewItemForeground(AppTheme theme)
+    {
+        switch (theme)
+        {
+            case AppTheme.Dark:
+                return DarkColors.ListViewForeground;
+            case AppTheme.Black:
+                return BlackColors.ListViewForeground;
+            default: // AppTheme.Light
+                return LightColors.ListViewForeground;
+        }
+    }
+
+    public static Color GetHighlightBackground(AppTheme theme)
+    {
+        switch (theme)
+        {
+            case AppTheme.Dark:
+                return Color.FromArgb(255, 255, 200); // Light yellow for dark theme
+            case AppTheme.Black:
+                return Color.FromArgb(255, 255, 200); // Light yellow for black theme
+            default: // AppTheme.Light
+                return Color.FromArgb(255, 255, 200); // Light yellow for light theme
+        }
+    }
+
+    public static Color GetHighlightForeground(AppTheme theme)
+    {
+        switch (theme)
+        {
+            case AppTheme.Dark:
+            case AppTheme.Black:
+                return Color.Black; // Black text for contrast on light yellow
+            default: // AppTheme.Light
+                return Color.Black; // Black text for contrast on light yellow
+        }
+    }
+
+    public static Color GetLogLevelBackground(NLog.LogLevel level, AppTheme theme)
+    {
+        switch (theme)
+        {
+            case AppTheme.Dark:
+                if (level == NLog.LogLevel.Error)
+                    return Color.FromArgb(139, 0, 0); // Dark red
+                else if (level == NLog.LogLevel.Warn)
+                    return Color.FromArgb(139, 69, 0); // Dark orange
+                else if (level == NLog.LogLevel.Info)
+                    return Color.FromArgb(0, 0, 139); // Dark blue
+                else if (level == NLog.LogLevel.Debug)
+                    return Color.FromArgb(64, 64, 64); // Dark gray
+                else if (level == NLog.LogLevel.Trace)
+                    return Color.FromArgb(32, 32, 32); // Very dark gray
+                else
+                    return DarkColors.ListViewBackground;
+            case AppTheme.Black:
+                if (level == NLog.LogLevel.Error)
+                    return Color.FromArgb(139, 0, 0); // Dark red
+                else if (level == NLog.LogLevel.Warn)
+                    return Color.FromArgb(139, 69, 0); // Dark orange
+                else if (level == NLog.LogLevel.Info)
+                    return Color.FromArgb(0, 0, 139); // Dark blue
+                else if (level == NLog.LogLevel.Debug)
+                    return Color.FromArgb(32, 32, 32); // Dark gray
+                else if (level == NLog.LogLevel.Trace)
+                    return Color.FromArgb(16, 16, 16); // Very dark gray
+                else
+                    return BlackColors.ListViewBackground;
+            default: // AppTheme.Light
+                if (level == NLog.LogLevel.Error)
+                    return Color.LightCoral;
+                else if (level == NLog.LogLevel.Warn)
+                    return Color.LightYellow;
+                else if (level == NLog.LogLevel.Info)
+                    return Color.LightBlue;
+                else if (level == NLog.LogLevel.Debug)
+                    return Color.LightGray;
+                else if (level == NLog.LogLevel.Trace)
+                    return Color.White;
+                else
+                    return LightColors.ListViewBackground;
+        }
+    }
+
+    public static Color GetLogLevelForeground(NLog.LogLevel level, AppTheme theme)
+    {
+        switch (theme)
+        {
+            case AppTheme.Dark:
+                if (level == NLog.LogLevel.Error)
+                    return Color.FromArgb(255, 128, 128); // Light red text
+                else if (level == NLog.LogLevel.Warn)
+                    return Color.FromArgb(255, 200, 128); // Light orange text
+                else if (level == NLog.LogLevel.Info)
+                    return Color.FromArgb(128, 128, 255); // Light blue text
+                else if (level == NLog.LogLevel.Debug)
+                    return Color.FromArgb(192, 192, 192); // Light gray text
+                else if (level == NLog.LogLevel.Trace)
+                    return Color.FromArgb(128, 128, 128); // Gray text
+                else
+                    return DarkColors.ListViewForeground;
+            case AppTheme.Black:
+                if (level == NLog.LogLevel.Error)
+                    return Color.FromArgb(255, 128, 128); // Light red text
+                else if (level == NLog.LogLevel.Warn)
+                    return Color.FromArgb(255, 200, 128); // Light orange text
+                else if (level == NLog.LogLevel.Info)
+                    return Color.FromArgb(128, 128, 255); // Light blue text
+                else if (level == NLog.LogLevel.Debug)
+                    return Color.FromArgb(192, 192, 192); // Light gray text
+                else if (level == NLog.LogLevel.Trace)
+                    return Color.FromArgb(128, 128, 128); // Gray text
+                else
+                    return BlackColors.ListViewForeground;
+            default: // AppTheme.Light
+                if (level == NLog.LogLevel.Error)
+                    return Color.DarkRed;
+                else if (level == NLog.LogLevel.Warn)
+                    return Color.DarkOrange;
+                else if (level == NLog.LogLevel.Info)
+                    return Color.DarkBlue;
+                else if (level == NLog.LogLevel.Debug)
+                    return Color.DarkGray;
+                else if (level == NLog.LogLevel.Trace)
+                    return Color.Black;
+                else
+                    return LightColors.ListViewForeground;
+        }
+    }
 }
 
 // Custom renderer for dark mode tool strips

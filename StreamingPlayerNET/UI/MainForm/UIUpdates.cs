@@ -286,10 +286,11 @@ public partial class MainForm
     /// </summary>
     private void ClearHighlighting(ListView listView)
     {
+        var currentTheme = ConfigurationService.Current.Theme;
         foreach (ListViewItem item in listView.Items)
         {
-            item.BackColor = SystemColors.Window;
-            item.ForeColor = SystemColors.WindowText;
+            item.BackColor = ThemeService.GetListViewItemBackground(currentTheme);
+            item.ForeColor = ThemeService.GetListViewItemForeground(currentTheme);
             item.Font = new Font(item.Font, FontStyle.Regular);
         }
     }
@@ -299,9 +300,11 @@ public partial class MainForm
     /// </summary>
     private void HighlightItem(ListViewItem item)
     {
-        // Use a more noticeable highlight color that works in both light and dark themes
-        item.BackColor = Color.FromArgb(255, 255, 200); // Light yellow background
-        item.ForeColor = Color.Black; // Black text for contrast
+        var currentTheme = ConfigurationService.Current.Theme;
+        
+        // Use theme-aware highlight colors
+        item.BackColor = ThemeService.GetHighlightBackground(currentTheme);
+        item.ForeColor = ThemeService.GetHighlightForeground(currentTheme);
         
         // Make the text bold to make it more prominent
         item.Font = new Font(item.Font, FontStyle.Bold);
@@ -337,5 +340,87 @@ public partial class MainForm
         HighlightCurrentlyPlayingSong(searchListView);
         HighlightCurrentlyPlayingSong(queueListView);
         HighlightCurrentlyPlayingSong(playlistListView);
+    }
+
+    /// <summary>
+    /// Refreshes colors in all ListViews when the theme changes
+    /// </summary>
+    private void RefreshAllListViewColors()
+    {
+        if (InvokeRequired)
+        {
+            SafeInvoke(RefreshAllListViewColors);
+            return;
+        }
+        
+        try
+        {
+            var currentTheme = ConfigurationService.Current.Theme;
+            
+            // Refresh colors for all listviews
+            RefreshListViewColors(searchListView, currentTheme);
+            RefreshListViewColors(queueListView, currentTheme);
+            RefreshListViewColors(playlistListView, currentTheme);
+            RefreshListViewColors(downloadsListView, currentTheme);
+            RefreshListViewColors(logsListView, currentTheme);
+            
+            Logger.Debug("All ListView colors refreshed for theme change");
+        }
+        catch (Exception ex)
+        {
+            Logger.Error(ex, "Failed to refresh ListView colors");
+        }
+    }
+
+    /// <summary>
+    /// Refreshes colors for a specific ListView
+    /// </summary>
+    private void RefreshListViewColors(ListView listView, AppTheme theme)
+    {
+        if (listView == null || listView.Items.Count == 0) return;
+        
+        foreach (ListViewItem item in listView.Items)
+        {
+            // Check if this is a log item (has specific log level colors)
+            if (listView == logsListView && item.SubItems.Count > 1)
+            {
+                // Try to parse the log level from the second subitem
+                var levelText = item.SubItems[1].Text;
+                NLog.LogLevel logLevel;
+                if (levelText.Equals("Error", StringComparison.OrdinalIgnoreCase))
+                    logLevel = NLog.LogLevel.Error;
+                else if (levelText.Equals("Warn", StringComparison.OrdinalIgnoreCase))
+                    logLevel = NLog.LogLevel.Warn;
+                else if (levelText.Equals("Info", StringComparison.OrdinalIgnoreCase))
+                    logLevel = NLog.LogLevel.Info;
+                else if (levelText.Equals("Debug", StringComparison.OrdinalIgnoreCase))
+                    logLevel = NLog.LogLevel.Debug;
+                else if (levelText.Equals("Trace", StringComparison.OrdinalIgnoreCase))
+                    logLevel = NLog.LogLevel.Trace;
+                else
+                    logLevel = NLog.LogLevel.Info; // Default fallback
+                
+                item.BackColor = ThemeService.GetLogLevelBackground(logLevel, theme);
+                item.ForeColor = ThemeService.GetLogLevelForeground(logLevel, theme);
+                continue;
+            }
+            
+            // For other items, check if they're highlighted (currently playing)
+            var currentSong = _musicPlayerService?.CurrentSong;
+            if (currentSong != null && item.Tag is Song song && IsSameSong(song, currentSong))
+            {
+                // Keep highlighting for currently playing song
+                item.BackColor = ThemeService.GetHighlightBackground(theme);
+                item.ForeColor = ThemeService.GetHighlightForeground(theme);
+                item.Font = new Font(item.Font, FontStyle.Bold);
+            }
+            else
+            {
+                // Reset to normal colors
+                item.BackColor = ThemeService.GetListViewItemBackground(theme);
+                item.ForeColor = ThemeService.GetListViewItemForeground(theme);
+                item.Font = new Font(item.Font, FontStyle.Regular);
+            }
+        }
     }
 }
