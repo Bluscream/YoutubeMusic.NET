@@ -109,6 +109,7 @@ partial class MainForm
     private ToolStripStatusLabel timingLabel;
     private ToolStripProgressBar downloadProgressBar;
     private ToolStripStatusLabel volumeLabel;
+    private ToolStripProgressBar vuMeterProgressBar;
     private TrackBar volumeTrackBar;
 
 
@@ -856,7 +857,7 @@ partial class MainForm
         // 
         // statusStrip
         // 
-        statusStrip.Items.AddRange(new ToolStripItem[] { downloadProgressBar, statusLabel, timingLabel, volumeLabel });
+        statusStrip.Items.AddRange(new ToolStripItem[] { downloadProgressBar, statusLabel, timingLabel, volumeLabel, vuMeterProgressBar });
         statusStrip.Location = new Point(0, 568);
         statusStrip.Name = "statusStrip";
         statusStrip.Size = new Size(1000, 24);
@@ -893,6 +894,14 @@ partial class MainForm
         volumeLabel.Size = new Size(30, 19);
         volumeLabel.Text = "";
         volumeLabel.TextAlign = ContentAlignment.MiddleRight;
+        // 
+        // vuMeterProgressBar
+        // 
+        vuMeterProgressBar.Name = "vuMeterProgressBar";
+        vuMeterProgressBar.Size = new Size(60, 18);
+        vuMeterProgressBar.Style = ProgressBarStyle.Continuous;
+        vuMeterProgressBar.Maximum = 100;
+        vuMeterProgressBar.Value = 0;
         // 
         // volumeTrackBar
         // 

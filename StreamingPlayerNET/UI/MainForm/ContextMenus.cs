@@ -47,6 +47,11 @@ public partial class MainForm
         downloadMenuItem.Click += (s, e) => Task.Run(async () => await OnContextMenuDownload());
         contextMenu.Items.Add(downloadMenuItem);
         
+        // Redownload menu item (available for all context menu types)
+        var redownloadMenuItem = new ToolStripMenuItem("Redownload");
+        redownloadMenuItem.Click += (s, e) => Task.Run(async () => await OnContextMenuRedownload());
+        contextMenu.Items.Add(redownloadMenuItem);
+        
         contextMenu.Items.Add(new ToolStripSeparator());
         
         // Queue management items (only for queue)
@@ -273,6 +278,99 @@ public partial class MainForm
                     SafeInvoke(() => MessageBox.Show(
                         $"Failed to download '{song.Title}':\n{ex.Message}",
                         "Download Error",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error
+                    ));
+                }
+            }
+        }
+    }
+
+    private async Task OnContextMenuRedownload()
+    {
+        var activeListView = GetActiveListView();
+        if (activeListView?.SelectedItems.Count == 1)
+        {
+            var selectedItem = activeListView.SelectedItems[0];
+            if (selectedItem.Tag is Song song)
+            {
+                try
+                {
+                    Logger.Info($"Starting redownload for song: {song.Title}");
+                    
+                    // Get metadata and audio stream if not already available
+                    if (string.IsNullOrEmpty(song.Title) || song.SelectedStream == null)
+                    {
+                        Logger.Info("Getting metadata and audio stream for redownload");
+                        var metadata = await _metadataService.GetSongMetadataAsync(song.Id);
+                        
+                        // Update song with metadata
+                        song.Title = metadata.Title;
+                        song.Artist = metadata.Artist;
+                        song.Duration = metadata.Duration;
+                        song.ThumbnailUrl = metadata.ThumbnailUrl;
+                        song.Description = metadata.Description;
+                        song.UploadDate = metadata.UploadDate;
+                        song.ViewCount = metadata.ViewCount;
+                        song.LikeCount = metadata.LikeCount;
+                        
+                        // Get best audio stream
+                        song.SelectedStream = await _metadataService.GetBestAudioStreamAsync(song.Id);
+                    }
+                    
+                    if (song.SelectedStream != null)
+                    {
+                        // Clear the cache for this song first
+                        var cachingService = _playbackService?.GetCachingService();
+                        if (cachingService != null)
+                        {
+                            Logger.Info($"Clearing cache for song: {song.Title}");
+                            cachingService.ClearCacheForSong(song, song.SelectedStream);
+                        }
+                        
+                        // Create cancellation token for this download
+                        var cancellationTokenSource = new CancellationTokenSource();
+                        
+                        // Add download to UI with cancellation token
+                        AddDownload(song, song.SelectedStream, cancellationTokenSource);
+                        
+                        // Download the audio file with cancellation token
+                        var filePath = await _downloadService.DownloadAudioAsync(song, cancellationTokenSource.Token);
+                        
+                        Logger.Info($"Successfully redownloaded song to: {filePath}");
+                        
+                        // Show success message
+                        SafeInvoke(() => MessageBox.Show(
+                            $"Successfully redownloaded '{song.Title}' to:\n{filePath}",
+                            "Redownload Complete",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        ));
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("No audio stream available for redownload");
+                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    Logger.Info($"Redownload cancelled for song: {song.Title}");
+                    // Mark the download as cancelled in the UI
+                    if (song.SelectedStream != null)
+                    {
+                        var cacheKey = GenerateCacheKey(song, song.SelectedStream);
+                        MarkDownloadAsCancelled(cacheKey);
+                    }
+                    // Download was cancelled, no need to show error message
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex, $"Failed to redownload song: {song.Title}");
+                    
+                    // Show error message
+                    SafeInvoke(() => MessageBox.Show(
+                        $"Failed to redownload '{song.Title}':\n{ex.Message}",
+                        "Redownload Error",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Error
                     ));
