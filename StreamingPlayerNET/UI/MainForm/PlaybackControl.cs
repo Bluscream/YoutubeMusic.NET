@@ -283,7 +283,7 @@ public partial class MainForm
                 return;
             }
         }
-        else if (_queue.RepeatMode == RepeatMode.None && _queue.HasNext)
+        else if (_queue.RepeatMode == RepeatMode.None && _queue.CurrentIndex + 1 < _queue.Songs.Count)
         {
             // Play next song if available (no repeat)
             Logger.Info($"[Completed-{completedId}] AUTO-PLAYING next song (No repeat mode)");
@@ -309,7 +309,7 @@ public partial class MainForm
 
     private async Task PlayNextSong()
     {
-        if (_queue.HasNext)
+        if (_queue.CurrentIndex + 1 < _queue.Songs.Count || (_queue.RepeatMode == RepeatMode.All && _queue.Songs.Count > 0))
         {
             _queue.MoveToNext();
             var nextSong = _queue.CurrentSong;
@@ -326,7 +326,7 @@ public partial class MainForm
 
     private async Task PlayPreviousSong()
     {
-        if (_queue.HasPrevious)
+        if (_queue.CurrentIndex - 1 >= 0 || (_queue.RepeatMode == RepeatMode.All && _queue.Songs.Count > 0))
         {
             _queue.MoveToPrevious();
             var previousSong = _queue.CurrentSong;

@@ -244,11 +244,12 @@ public class Queue : Playlist
         else
         {
             // Handle normal mode
-            if (HasNext)
+            if (_currentIndex + 1 < Songs.Count)
             {
+                // Move to next song if available
                 _currentIndex++;
             }
-            else if (_repeatMode == RepeatMode.All)
+            else if (_repeatMode == RepeatMode.All && Songs.Count > 0)
             {
                 // Loop back to the beginning
                 _currentIndex = 0;
@@ -274,11 +275,12 @@ public class Queue : Playlist
         else
         {
             // Handle normal mode
-            if (HasPrevious)
+            if (_currentIndex - 1 >= 0)
             {
+                // Move to previous song if available
                 _currentIndex--;
             }
-            else if (_repeatMode == RepeatMode.All)
+            else if (_repeatMode == RepeatMode.All && Songs.Count > 0)
             {
                 // Loop to the end
                 _currentIndex = Songs.Count - 1;
