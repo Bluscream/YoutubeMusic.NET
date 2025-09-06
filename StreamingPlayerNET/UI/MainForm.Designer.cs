@@ -84,15 +84,15 @@ partial class MainForm
     private ColumnHeader playlistDurationColumn;
     private ColumnHeader playlistSourceColumn;
 
-    private Panel searchControlsPanel;
+    private TableLayoutPanel searchControlsPanel;
 
 
     private SplitContainer playlistSplitContainer;
     private ListBox playlistsListBox;
     private Panel playerPanel;
     private SplitContainer playerSplitContainer;
-    private Panel playbackControlsPanel;
-    private Panel seekBarPanel;
+    private TableLayoutPanel playbackControlsPanel;
+    private TableLayoutPanel seekBarPanel;
     private Button playPauseButton;
     private Button stopButton;
     private Button previousButton;
@@ -151,7 +151,7 @@ partial class MainForm
         searchArtistColumn = new ColumnHeader();
         searchDurationColumn = new ColumnHeader();
         searchSourceColumn = new ColumnHeader();
-        searchControlsPanel = new Panel();
+        searchControlsPanel = new TableLayoutPanel();
         searchTextBox = new TextBox();
         searchButton = new Button();
         queueTabPage = new TabPage();
@@ -184,14 +184,14 @@ partial class MainForm
         playerPanel = new Panel();
         playerSplitContainer = new SplitContainer();
         currentSongLabel = new Label();
-        playbackControlsPanel = new Panel();
+        playbackControlsPanel = new TableLayoutPanel();
         previousButton = new Button();
         nextButton = new Button();
         repeatButton = new Button();
         shuffleButton = new Button();
         stopButton = new Button();
         playPauseButton = new Button();
-        seekBarPanel = new Panel();
+        seekBarPanel = new TableLayoutPanel();
         seekBar = new ProgressBar();
         elapsedTimeLabel = new Label();
         remainingTimeLabel = new Label();
@@ -455,17 +455,24 @@ partial class MainForm
         // 
         // searchControlsPanel
         // 
-        searchControlsPanel.Controls.Add(searchTextBox);
-        searchControlsPanel.Controls.Add(searchButton);
+        searchControlsPanel.ColumnCount = 2;
+        searchControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        searchControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 85F));
+        searchControlsPanel.Controls.Add(searchTextBox, 0, 0);
+        searchControlsPanel.Controls.Add(searchButton, 1, 0);
         searchControlsPanel.Dock = DockStyle.Top;
         searchControlsPanel.Name = "searchControlsPanel";
+        searchControlsPanel.Padding = new Padding(10, 15, 10, 10);
+        searchControlsPanel.RowCount = 1;
+        searchControlsPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
         searchControlsPanel.Size = new Size(986, 50);
         searchControlsPanel.TabIndex = 0;
         // 
         // searchTextBox
         // 
-        searchTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        searchTextBox.Location = new Point(10, 15);
+        searchTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        searchTextBox.Dock = DockStyle.Fill;
+        searchTextBox.Margin = new Padding(0, 0, 10, 0);
         searchTextBox.Name = "searchTextBox";
         searchTextBox.PlaceholderText = "Search for songs, artists, albums...";
         searchTextBox.Size = new Size(882, 23);
@@ -473,8 +480,8 @@ partial class MainForm
         // 
         // searchButton
         // 
-        searchButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        searchButton.Location = new Point(898, 13);
+        searchButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        searchButton.Dock = DockStyle.Fill;
         searchButton.Name = "searchButton";
         searchButton.Size = new Size(75, 25);
         searchButton.TabIndex = 1;
@@ -708,22 +715,34 @@ partial class MainForm
         // 
         // playbackControlsPanel
         // 
-        playbackControlsPanel.Controls.Add(previousButton);
-        playbackControlsPanel.Controls.Add(nextButton);
-        playbackControlsPanel.Controls.Add(repeatButton);
-        playbackControlsPanel.Controls.Add(shuffleButton);
-        playbackControlsPanel.Controls.Add(stopButton);
-        playbackControlsPanel.Controls.Add(playPauseButton);
-        playbackControlsPanel.Controls.Add(volumeTrackBar);
+        playbackControlsPanel.ColumnCount = 7;
+        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+        playbackControlsPanel.Controls.Add(playPauseButton, 0, 0);
+        playbackControlsPanel.Controls.Add(stopButton, 1, 0);
+        playbackControlsPanel.Controls.Add(previousButton, 2, 0);
+        playbackControlsPanel.Controls.Add(nextButton, 3, 0);
+        playbackControlsPanel.Controls.Add(repeatButton, 4, 0);
+        playbackControlsPanel.Controls.Add(shuffleButton, 5, 0);
+        playbackControlsPanel.Controls.Add(volumeTrackBar, 6, 0);
         playbackControlsPanel.Dock = DockStyle.Bottom;
         playbackControlsPanel.Name = "playbackControlsPanel";
+        playbackControlsPanel.Padding = new Padding(10, 2, 10, 2);
+        playbackControlsPanel.RowCount = 1;
+        playbackControlsPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
         playbackControlsPanel.Size = new Size(1000, 30);
         playbackControlsPanel.TabIndex = 6;
         // 
         // previousButton
         // 
-        previousButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-        previousButton.Location = new Point(122, 2);
+        previousButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        previousButton.Dock = DockStyle.Fill;
+        previousButton.Margin = new Padding(2);
         previousButton.Name = "previousButton";
         previousButton.Size = new Size(50, 25);
         previousButton.TabIndex = 3;
@@ -732,8 +751,9 @@ partial class MainForm
         // 
         // nextButton
         // 
-        nextButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-        nextButton.Location = new Point(178, 2);
+        nextButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        nextButton.Dock = DockStyle.Fill;
+        nextButton.Margin = new Padding(2);
         nextButton.Name = "nextButton";
         nextButton.Size = new Size(50, 25);
         nextButton.TabIndex = 4;
@@ -742,8 +762,9 @@ partial class MainForm
         // 
         // repeatButton
         // 
-        repeatButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-        repeatButton.Location = new Point(234, 2);
+        repeatButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        repeatButton.Dock = DockStyle.Fill;
+        repeatButton.Margin = new Padding(2);
         repeatButton.Name = "repeatButton";
         repeatButton.Size = new Size(50, 25);
         repeatButton.TabIndex = 5;
@@ -752,8 +773,9 @@ partial class MainForm
         // 
         // shuffleButton
         // 
-        shuffleButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-        shuffleButton.Location = new Point(290, 2);
+        shuffleButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        shuffleButton.Dock = DockStyle.Fill;
+        shuffleButton.Margin = new Padding(2);
         shuffleButton.Name = "shuffleButton";
         shuffleButton.Size = new Size(50, 25);
         shuffleButton.TabIndex = 6;
@@ -762,8 +784,9 @@ partial class MainForm
         // 
         // stopButton
         // 
-        stopButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-        stopButton.Location = new Point(66, 2);
+        stopButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        stopButton.Dock = DockStyle.Fill;
+        stopButton.Margin = new Padding(2);
         stopButton.Name = "stopButton";
         stopButton.Size = new Size(50, 25);
         stopButton.TabIndex = 2;
@@ -772,8 +795,9 @@ partial class MainForm
         // 
         // playPauseButton
         // 
-        playPauseButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-        playPauseButton.Location = new Point(10, 2);
+        playPauseButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        playPauseButton.Dock = DockStyle.Fill;
+        playPauseButton.Margin = new Padding(2);
         playPauseButton.Name = "playPauseButton";
         playPauseButton.Size = new Size(50, 25);
         playPauseButton.TabIndex = 0;
@@ -782,26 +806,34 @@ partial class MainForm
         // 
         // seekBarPanel
         // 
-        seekBarPanel.Controls.Add(seekBar);
-        seekBarPanel.Controls.Add(elapsedTimeLabel);
-        seekBarPanel.Controls.Add(remainingTimeLabel);
+        seekBarPanel.ColumnCount = 3;
+        seekBarPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+        seekBarPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        seekBarPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+        seekBarPanel.Controls.Add(elapsedTimeLabel, 0, 0);
+        seekBarPanel.Controls.Add(seekBar, 1, 0);
+        seekBarPanel.Controls.Add(remainingTimeLabel, 2, 0);
         seekBarPanel.Dock = DockStyle.Fill;
         seekBarPanel.Name = "seekBarPanel";
+        seekBarPanel.Padding = new Padding(10, 1, 10, 1);
+        seekBarPanel.RowCount = 1;
+        seekBarPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
         seekBarPanel.TabIndex = 0;
         // 
         // seekBar
         // 
-        seekBar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        seekBar.Location = new Point(50, 1);
+        seekBar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        seekBar.Dock = DockStyle.Fill;
+        seekBar.Margin = new Padding(5, 0, 5, 0);
         seekBar.Name = "seekBar";
         seekBar.Size = new Size(780, 23);
         seekBar.TabIndex = 1;
         // 
         // elapsedTimeLabel
         // 
-        elapsedTimeLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+        elapsedTimeLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         elapsedTimeLabel.AutoSize = true;
-        elapsedTimeLabel.Location = new Point(10, 4);
+        elapsedTimeLabel.Dock = DockStyle.Fill;
         elapsedTimeLabel.Name = "elapsedTimeLabel";
         elapsedTimeLabel.Size = new Size(34, 15);
         elapsedTimeLabel.TabIndex = 2;
@@ -810,10 +842,10 @@ partial class MainForm
         // 
         // remainingTimeLabel
         // 
-        remainingTimeLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        remainingTimeLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         remainingTimeLabel.AutoSize = true;
         remainingTimeLabel.Cursor = Cursors.Hand;
-        remainingTimeLabel.Location = new Point(846, 4);
+        remainingTimeLabel.Dock = DockStyle.Fill;
         remainingTimeLabel.Name = "remainingTimeLabel";
         remainingTimeLabel.Size = new Size(34, 15);
         remainingTimeLabel.TabIndex = 3;
@@ -861,8 +893,9 @@ partial class MainForm
         // 
         // volumeTrackBar
         // 
-        volumeTrackBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        volumeTrackBar.Location = new Point(900, 2);
+        volumeTrackBar.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        volumeTrackBar.Dock = DockStyle.Fill;
+        volumeTrackBar.Margin = new Padding(2);
         volumeTrackBar.Maximum = 100;
         volumeTrackBar.Name = "volumeTrackBar";
         volumeTrackBar.Size = new Size(100, 25);
