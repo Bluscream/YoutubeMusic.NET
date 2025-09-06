@@ -730,21 +730,22 @@ partial class MainForm
         // 
         // playbackControlsPanel
         // 
-        playbackControlsPanel.ColumnCount = 7;
+        playbackControlsPanel.ColumnCount = 8;
         playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
         playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
         playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
         playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
         playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
         playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
-        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
         playbackControlsPanel.Controls.Add(playPauseButton, 0, 0);
         playbackControlsPanel.Controls.Add(stopButton, 1, 0);
         playbackControlsPanel.Controls.Add(previousButton, 2, 0);
         playbackControlsPanel.Controls.Add(nextButton, 3, 0);
         playbackControlsPanel.Controls.Add(repeatButton, 4, 0);
         playbackControlsPanel.Controls.Add(shuffleButton, 5, 0);
-        playbackControlsPanel.Controls.Add(volumeTrackBar, 6, 0);
+        playbackControlsPanel.Controls.Add(volumeTrackBar, 7, 0);
         playbackControlsPanel.Dock = DockStyle.Bottom;
         playbackControlsPanel.Name = "playbackControlsPanel";
         playbackControlsPanel.Padding = new Padding(10, 2, 10, 2);
