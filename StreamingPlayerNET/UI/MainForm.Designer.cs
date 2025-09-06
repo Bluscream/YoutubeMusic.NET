@@ -568,7 +568,7 @@ partial class MainForm
         // playlistSplitContainer.Panel2
         // 
         playlistSplitContainer.Panel2.Controls.Add(playlistListView);
-        playlistSplitContainer.SplitterDistance = 250;
+        playlistSplitContainer.SplitterDistance = 150;
         playlistSplitContainer.TabIndex = 0;
         // 
         // playlistsListBox
