@@ -4,10 +4,16 @@ namespace StreamingPlayerNET.UI;
 
 public partial class MainForm
 {
+    private bool _isAdjustingColumns = false;
+    
     private void AdjustListViewColumns(ListView listView)
     {
+        if (_isAdjustingColumns) return; // Prevent recursive calls
+        
         try
         {
+            _isAdjustingColumns = true;
+            
             if (listView.Columns.Count == 4) // Search, Queue, Playlist ListViews
             {
                 // Use auto-sizing for better column width management
@@ -29,6 +35,10 @@ public partial class MainForm
         catch (Exception ex)
         {
             Logger.Debug(ex, "Error adjusting ListView columns");
+        }
+        finally
+        {
+            _isAdjustingColumns = false;
         }
     }
 
