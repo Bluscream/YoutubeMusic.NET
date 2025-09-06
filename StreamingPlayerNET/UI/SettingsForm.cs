@@ -64,7 +64,7 @@ public partial class SettingsForm : Form
             DialogResult = DialogResult.OK,
             Width = 75,
             Height = 23,
-            Location = new Point(ClientSize.Width - 170, ClientSize.Height - 35)
+            Anchor = AnchorStyles.Bottom | AnchorStyles.Right
         };
         
         _cancelButton = new Button
@@ -73,7 +73,7 @@ public partial class SettingsForm : Form
             DialogResult = DialogResult.Cancel,
             Width = 75,
             Height = 23,
-            Location = new Point(ClientSize.Width - 85, ClientSize.Height - 35)
+            Anchor = AnchorStyles.Bottom | AnchorStyles.Right
         };
         
         _resetButton = new Button
@@ -81,7 +81,7 @@ public partial class SettingsForm : Form
             Text = "Reset to Defaults",
             Width = 120,
             Height = 23,
-            Location = new Point(10, ClientSize.Height - 35)
+            Anchor = AnchorStyles.Bottom | AnchorStyles.Left
         };
         
         _saveButton.Click += SaveButton_Click;
@@ -95,12 +95,15 @@ public partial class SettingsForm : Form
         
         GenerateSettingsUI();
         
+        // Set initial positions for anchored buttons
+        _saveButton.Location = new Point(ClientSize.Width - 170, ClientSize.Height - 35);
+        _cancelButton.Location = new Point(ClientSize.Width - 85, ClientSize.Height - 35);
+        _resetButton.Location = new Point(10, ClientSize.Height - 35);
+        
         // Handle form resize
         Resize += (s, e) =>
         {
             _tabControl.Height = ClientSize.Height - 50;
-            _saveButton.Location = new Point(ClientSize.Width - 170, ClientSize.Height - 35);
-            _cancelButton.Location = new Point(ClientSize.Width - 85, ClientSize.Height - 35);
             
             // Update control widths when form is resized
             foreach (var control in _propertyControls.Values)

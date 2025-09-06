@@ -407,20 +407,16 @@ partial class MainForm
         mainTabControl.Controls.Add(downloadsTabPage);
         mainTabControl.Controls.Add(logsTabPage);
         mainTabControl.Dock = DockStyle.Fill;
-        mainTabControl.Location = new Point(0, 24);
         mainTabControl.Name = "mainTabControl";
         mainTabControl.SelectedIndex = 0;
-        mainTabControl.Size = new Size(1000, 464);
         mainTabControl.TabIndex = 1;
         // 
         // searchTabPage
         // 
         searchTabPage.Controls.Add(searchListView);
         searchTabPage.Controls.Add(searchControlsPanel);
-        searchTabPage.Location = new Point(4, 24);
         searchTabPage.Name = "searchTabPage";
         searchTabPage.Padding = new Padding(3);
-        searchTabPage.Size = new Size(992, 436);
         searchTabPage.TabIndex = 0;
         searchTabPage.Text = "🔍 Search";
         searchTabPage.UseVisualStyleBackColor = true;
@@ -431,9 +427,7 @@ partial class MainForm
         searchListView.Dock = DockStyle.Fill;
         searchListView.FullRowSelect = true;
         searchListView.GridLines = true;
-        searchListView.Location = new Point(3, 53);
         searchListView.Name = "searchListView";
-        searchListView.Size = new Size(986, 380);
         searchListView.TabIndex = 1;
         searchListView.UseCompatibleStateImageBehavior = false;
         searchListView.View = View.Details;
@@ -464,7 +458,6 @@ partial class MainForm
         searchControlsPanel.Controls.Add(searchTextBox);
         searchControlsPanel.Controls.Add(searchButton);
         searchControlsPanel.Dock = DockStyle.Top;
-        searchControlsPanel.Location = new Point(3, 3);
         searchControlsPanel.Name = "searchControlsPanel";
         searchControlsPanel.Size = new Size(986, 50);
         searchControlsPanel.TabIndex = 0;
@@ -492,10 +485,8 @@ partial class MainForm
         // 
         queueTabPage.Controls.Add(queueListView);
         queueTabPage.Dock = DockStyle.Fill;
-        queueTabPage.Location = new Point(4, 24);
         queueTabPage.Name = "queueTabPage";
         queueTabPage.Padding = new Padding(3);
-        queueTabPage.Size = new Size(992, 438);
         queueTabPage.TabIndex = 1;
         queueTabPage.Text = "📋 Queue";
         queueTabPage.UseVisualStyleBackColor = true;
@@ -506,9 +497,7 @@ partial class MainForm
         queueListView.Dock = DockStyle.Fill;
         queueListView.FullRowSelect = true;
         queueListView.GridLines = true;
-        queueListView.Location = new Point(3, 3);
         queueListView.Name = "queueListView";
-        queueListView.Size = new Size(986, 432);
         queueListView.TabIndex = 1;
         queueListView.UseCompatibleStateImageBehavior = false;
         queueListView.View = View.Details;
@@ -539,10 +528,8 @@ partial class MainForm
         // playlistTabPage
         // 
         playlistTabPage.Controls.Add(playlistSplitContainer);
-        playlistTabPage.Location = new Point(4, 24);
         playlistTabPage.Name = "playlistTabPage";
         playlistTabPage.Padding = new Padding(3);
-        playlistTabPage.Size = new Size(992, 438);
         playlistTabPage.TabIndex = 2;
         playlistTabPage.Text = "🎵 Playlists";
         playlistTabPage.UseVisualStyleBackColor = true;
@@ -550,7 +537,6 @@ partial class MainForm
         // playlistSplitContainer
         // 
         playlistSplitContainer.Dock = DockStyle.Fill;
-        playlistSplitContainer.Location = new Point(3, 3);
         playlistSplitContainer.Name = "playlistSplitContainer";
         // 
         // playlistSplitContainer.Panel1
@@ -560,7 +546,6 @@ partial class MainForm
         // playlistSplitContainer.Panel2
         // 
         playlistSplitContainer.Panel2.Controls.Add(playlistListView);
-        playlistSplitContainer.Size = new Size(986, 432);
         playlistSplitContainer.SplitterDistance = 250;
         playlistSplitContainer.TabIndex = 0;
         // 
@@ -568,9 +553,7 @@ partial class MainForm
         // 
         playlistsListBox.Dock = DockStyle.Fill;
         playlistsListBox.FormattingEnabled = true;
-        playlistsListBox.Location = new Point(0, 0);
         playlistsListBox.Name = "playlistsListBox";
-        playlistsListBox.Size = new Size(250, 432);
         playlistsListBox.TabIndex = 0;
         // 
         // playlistListView
@@ -579,9 +562,7 @@ partial class MainForm
         playlistListView.Dock = DockStyle.Fill;
         playlistListView.FullRowSelect = true;
         playlistListView.GridLines = true;
-        playlistListView.Location = new Point(0, 0);
         playlistListView.Name = "playlistListView";
-        playlistListView.Size = new Size(732, 432);
         playlistListView.TabIndex = 0;
         playlistListView.UseCompatibleStateImageBehavior = false;
         playlistListView.View = View.Details;
@@ -610,10 +591,8 @@ partial class MainForm
         // downloadsTabPage
         // 
         downloadsTabPage.Controls.Add(downloadsListView);
-        downloadsTabPage.Location = new Point(4, 24);
         downloadsTabPage.Name = "downloadsTabPage";
         downloadsTabPage.Padding = new Padding(3);
-        downloadsTabPage.Size = new Size(992, 438);
         downloadsTabPage.TabIndex = 3;
         downloadsTabPage.Text = "⬇️ Downloads";
         downloadsTabPage.UseVisualStyleBackColor = true;
@@ -624,9 +603,7 @@ partial class MainForm
         downloadsListView.Dock = DockStyle.Fill;
         downloadsListView.FullRowSelect = true;
         downloadsListView.GridLines = true;
-        downloadsListView.Location = new Point(3, 3);
         downloadsListView.Name = "downloadsListView";
-        downloadsListView.Size = new Size(986, 432);
         downloadsListView.TabIndex = 0;
         downloadsListView.UseCompatibleStateImageBehavior = false;
         downloadsListView.View = View.Details;
@@ -659,10 +636,8 @@ partial class MainForm
         // logsTabPage
         // 
         logsTabPage.Controls.Add(logsListView);
-        logsTabPage.Location = new Point(4, 24);
         logsTabPage.Name = "logsTabPage";
         logsTabPage.Padding = new Padding(3);
-        logsTabPage.Size = new Size(992, 438);
         logsTabPage.TabIndex = 4;
         logsTabPage.Text = "📋 Logs";
         logsTabPage.UseVisualStyleBackColor = true;
@@ -673,9 +648,7 @@ partial class MainForm
         logsListView.Dock = DockStyle.Fill;
         logsListView.FullRowSelect = true;
         logsListView.GridLines = true;
-        logsListView.Location = new Point(3, 3);
         logsListView.Name = "logsListView";
-        logsListView.Size = new Size(986, 432);
         logsListView.TabIndex = 0;
         logsListView.UseCompatibleStateImageBehavior = false;
         logsListView.View = View.Details;
@@ -704,7 +677,6 @@ partial class MainForm
         // 
         playerPanel.Controls.Add(playerSplitContainer);
         playerPanel.Dock = DockStyle.Bottom;
-        playerPanel.Location = new Point(0, 488);
         playerPanel.Name = "playerPanel";
         playerPanel.Size = new Size(1000, 80);
         playerPanel.TabIndex = 2;
@@ -712,7 +684,6 @@ partial class MainForm
         // playerSplitContainer
         // 
         playerSplitContainer.Dock = DockStyle.Fill;
-        playerSplitContainer.Location = new Point(0, 0);
         playerSplitContainer.Name = "playerSplitContainer";
         playerSplitContainer.Orientation = Orientation.Horizontal;
         // 
@@ -724,16 +695,13 @@ partial class MainForm
         // 
         playerSplitContainer.Panel2.Controls.Add(playbackControlsPanel);
         playerSplitContainer.Panel2.Controls.Add(seekBarPanel);
-        playerSplitContainer.Size = new Size(1000, 80);
         playerSplitContainer.SplitterDistance = 25;
         playerSplitContainer.TabIndex = 0;
         // 
         // currentSongLabel
         // 
         currentSongLabel.Dock = DockStyle.Fill;
-        currentSongLabel.Location = new Point(0, 0);
         currentSongLabel.Name = "currentSongLabel";
-        currentSongLabel.Size = new Size(1000, 25);
         currentSongLabel.TabIndex = 0;
         currentSongLabel.Text = "No song selected";
         currentSongLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -748,14 +716,13 @@ partial class MainForm
         playbackControlsPanel.Controls.Add(playPauseButton);
         playbackControlsPanel.Controls.Add(volumeTrackBar);
         playbackControlsPanel.Dock = DockStyle.Bottom;
-        playbackControlsPanel.Location = new Point(0, 21);
         playbackControlsPanel.Name = "playbackControlsPanel";
         playbackControlsPanel.Size = new Size(1000, 30);
         playbackControlsPanel.TabIndex = 6;
         // 
         // previousButton
         // 
-        previousButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        previousButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
         previousButton.Location = new Point(122, 2);
         previousButton.Name = "previousButton";
         previousButton.Size = new Size(50, 25);
@@ -765,7 +732,7 @@ partial class MainForm
         // 
         // nextButton
         // 
-        nextButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        nextButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
         nextButton.Location = new Point(178, 2);
         nextButton.Name = "nextButton";
         nextButton.Size = new Size(50, 25);
@@ -775,7 +742,7 @@ partial class MainForm
         // 
         // repeatButton
         // 
-        repeatButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        repeatButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
         repeatButton.Location = new Point(234, 2);
         repeatButton.Name = "repeatButton";
         repeatButton.Size = new Size(50, 25);
@@ -785,7 +752,7 @@ partial class MainForm
         // 
         // shuffleButton
         // 
-        shuffleButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        shuffleButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
         shuffleButton.Location = new Point(290, 2);
         shuffleButton.Name = "shuffleButton";
         shuffleButton.Size = new Size(50, 25);
@@ -795,7 +762,7 @@ partial class MainForm
         // 
         // stopButton
         // 
-        stopButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        stopButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
         stopButton.Location = new Point(66, 2);
         stopButton.Name = "stopButton";
         stopButton.Size = new Size(50, 25);
@@ -805,7 +772,7 @@ partial class MainForm
         // 
         // playPauseButton
         // 
-        playPauseButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        playPauseButton.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
         playPauseButton.Location = new Point(10, 2);
         playPauseButton.Name = "playPauseButton";
         playPauseButton.Size = new Size(50, 25);
@@ -819,9 +786,7 @@ partial class MainForm
         seekBarPanel.Controls.Add(elapsedTimeLabel);
         seekBarPanel.Controls.Add(remainingTimeLabel);
         seekBarPanel.Dock = DockStyle.Fill;
-        seekBarPanel.Location = new Point(0, 0);
         seekBarPanel.Name = "seekBarPanel";
-        seekBarPanel.Size = new Size(1000, 51);
         seekBarPanel.TabIndex = 0;
         // 
         // seekBar
@@ -834,6 +799,7 @@ partial class MainForm
         // 
         // elapsedTimeLabel
         // 
+        elapsedTimeLabel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
         elapsedTimeLabel.AutoSize = true;
         elapsedTimeLabel.Location = new Point(10, 4);
         elapsedTimeLabel.Name = "elapsedTimeLabel";
@@ -857,7 +823,6 @@ partial class MainForm
         // statusStrip
         // 
         statusStrip.Items.AddRange(new ToolStripItem[] { downloadProgressBar, statusLabel, timingLabel, volumeLabel });
-        statusStrip.Location = new Point(0, 568);
         statusStrip.Name = "statusStrip";
         statusStrip.Size = new Size(1000, 24);
         statusStrip.TabIndex = 3;
@@ -896,7 +861,7 @@ partial class MainForm
         // 
         // volumeTrackBar
         // 
-        volumeTrackBar.Anchor = AnchorStyles.Right;
+        volumeTrackBar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
         volumeTrackBar.Location = new Point(900, 2);
         volumeTrackBar.Maximum = 100;
         volumeTrackBar.Name = "volumeTrackBar";
