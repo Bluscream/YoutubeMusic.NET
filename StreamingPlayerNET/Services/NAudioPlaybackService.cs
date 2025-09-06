@@ -19,7 +19,6 @@ public class NAudioPlaybackService : IPlaybackService
     private IWaveProvider? _audioProvider;
     private string? _currentTempFile;
     private System.Windows.Forms.Timer? _progressTimer;
-    private AudioLevelService? _audioLevelService;
     private IDownloadService? _downloadService;
     private CachingService? _cachingService;
     private bool _isManualStop = false;
@@ -28,7 +27,6 @@ public class NAudioPlaybackService : IPlaybackService
     public event EventHandler<TimeSpan>? PositionChanged;
     public event EventHandler? PlaybackCompleted;
     public event EventHandler<PlaybackErrorEventArgs>? PlaybackError;
-    public event EventHandler<float>? AudioLevelChanged;
     
     public bool IsPlaying => _audioOutput?.PlaybackState == NAudio.Wave.PlaybackState.Playing;
     public bool IsPaused => _audioOutput?.PlaybackState == NAudio.Wave.PlaybackState.Paused;
@@ -38,8 +36,6 @@ public class NAudioPlaybackService : IPlaybackService
     {
         Logger.Info("NAudio Playback Service initialized");
         SetupProgressTimer();
-        _audioLevelService = new AudioLevelService();
-        _audioLevelService.AudioLevelChanged += (sender, level) => AudioLevelChanged?.Invoke(this, level);
     }
     
     public void SetDownloadService(IDownloadService downloadService)
@@ -268,18 +264,6 @@ public class NAudioPlaybackService : IPlaybackService
             _audioOutput = new WaveOutEvent();
             _audioOutput.Init(_audioProvider);
             
-            // Start audio level monitoring
-            if (_audioLevelService != null && _audioProvider != null && _audioOutput != null)
-            {
-                try
-                {
-                    _audioLevelService.StartMonitoring(_audioProvider, _audioOutput);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Warn(ex, "Failed to start audio level monitoring");
-                }
-            }
             
             _audioOutput.PlaybackStopped += (s, e) => 
             {
@@ -424,7 +408,6 @@ public class NAudioPlaybackService : IPlaybackService
         if (_audioOutput?.PlaybackState == NAudio.Wave.PlaybackState.Playing)
         {
             Logger.Info("Pausing playback");
-            _audioLevelService?.StopMonitoring();
             _audioOutput.Pause();
             _progressTimer?.Stop();
             PlaybackStateChanged?.Invoke(this, StreamingPlayerNET.Common.Models.PlaybackState.Paused);
@@ -439,18 +422,6 @@ public class NAudioPlaybackService : IPlaybackService
             _audioOutput.Play();
             _progressTimer?.Start();
             
-            // Resume audio level monitoring
-            if (_audioLevelService != null && _audioProvider != null && _audioOutput != null)
-            {
-                try
-                {
-                    _audioLevelService.StartMonitoring(_audioProvider, _audioOutput);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Warn(ex, "Failed to resume audio level monitoring");
-                }
-            }
             
             PlaybackStateChanged?.Invoke(this, StreamingPlayerNET.Common.Models.PlaybackState.Playing);
         }
@@ -460,8 +431,6 @@ public class NAudioPlaybackService : IPlaybackService
     {
         Logger.Info("Stopping playback");
         
-        // Stop audio level monitoring
-        _audioLevelService?.StopMonitoring();
         
         _progressTimer?.Stop();
         _audioOutput?.Stop();
@@ -556,6 +525,5 @@ public class NAudioPlaybackService : IPlaybackService
     {
         Stop();
         _progressTimer?.Dispose();
-        _audioLevelService?.Dispose();
     }
 } 

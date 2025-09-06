@@ -100,11 +100,6 @@ public partial class MainForm
             _musicPlayerService.PlaybackCompleted += OnPlaybackCompleted;
             _musicPlayerService.PlaybackError += OnPlaybackError;
             
-            // Wire up audio level monitoring
-            if (_playbackService is NAudioPlaybackService naudioService)
-            {
-                naudioService.AudioLevelChanged += OnAudioLevelChanged;
-            }
             
             // Wire up caching service events for downloads tracking
             var cachingService = _playbackService?.GetCachingService();
@@ -267,38 +262,6 @@ public partial class MainForm
         }
     }
 
-    private void OnAudioLevelChanged(object? sender, float level)
-    {
-        if (InvokeRequired)
-        {
-            BeginInvoke(() => OnAudioLevelChanged(sender, level));
-            return;
-        }
-        
-        try
-        {
-            // Update VU meter progress bar
-            vuMeterProgressBar.Value = (int)Math.Round(level);
-            
-            // Change color based on level (green -> yellow -> red)
-            if (level < 50)
-            {
-                vuMeterProgressBar.ForeColor = Color.Green;
-            }
-            else if (level < 80)
-            {
-                vuMeterProgressBar.ForeColor = Color.Yellow;
-            }
-            else
-            {
-                vuMeterProgressBar.ForeColor = Color.Red;
-            }
-        }
-        catch (Exception ex)
-        {
-            Logger.Error(ex, "Failed to update VU meter");
-        }
-    }
 
     private void OnMediaCommandReceived(object? sender, MediaCommand command)
     {
