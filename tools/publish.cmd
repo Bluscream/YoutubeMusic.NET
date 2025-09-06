@@ -1,1 +1,1 @@
-powershell -ExecutionPolicy Bypass -Command "publish.ps1" -git -github -csproj StreamingPlayerNET/StreamingPlayerNET.csproj
+powershell -ExecutionPolicy Bypass -Command "build.ps1" -build -publish -git -github -csproj StreamingPlayerNET/StreamingPlayerNET.csproj -repo StreamingPlayerNET
