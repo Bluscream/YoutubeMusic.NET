@@ -42,10 +42,10 @@ public partial class MainForm
         // Calculate proportional widths based on content
         var totalWidth = logsListView.Width - 25; // Account for scrollbar
         
-        logTimeColumn.Width = (int)(totalWidth * 0.12); // 12% for time
-        logLevelColumn.Width = (int)(totalWidth * 0.08); // 8% for level
-        logLoggerColumn.Width = (int)(totalWidth * 0.15); // 15% for logger
-        logMessageColumn.Width = (int)(totalWidth * 0.65); // 65% for message
+        logTimeColumn.Width = (int)(totalWidth * 0.10); // 10% for time
+        logLevelColumn.Width = (int)(totalWidth * 0.06); // 6% for level
+        logLoggerColumn.Width = (int)(totalWidth * 0.12); // 12% for logger
+        logMessageColumn.Width = (int)(totalWidth * 0.72); // 72% for message
     }
     
     private void OnLogEntryAdded(object? sender, LogEntry entry)

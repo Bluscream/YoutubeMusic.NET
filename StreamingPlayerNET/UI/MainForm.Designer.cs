@@ -693,7 +693,7 @@ partial class MainForm
         // logMessageColumn
         // 
         logMessageColumn.Text = "Message";
-        logMessageColumn.Width = -2;
+        logMessageColumn.Width = -1;
         // 
         // playerPanel
         // 
