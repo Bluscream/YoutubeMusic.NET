@@ -288,7 +288,7 @@ public class YouTubeMusicPlaylistService : IPlaylistService
         }
     }
     
-    public async Task<bool> DeletePlaylistAsync(string playlistId, CancellationToken cancellationToken = default)
+    public Task<bool> DeletePlaylistAsync(string playlistId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -299,16 +299,16 @@ public class YouTubeMusicPlaylistService : IPlaylistService
             {
                 File.Delete(filePath);
                 Logger.Info($"Playlist {playlistId} deleted successfully");
-                return true;
+                return Task.FromResult(true);
             }
             
             Logger.Warn($"Playlist {playlistId} not found for deletion");
-            return false;
+            return Task.FromResult(false);
         }
         catch (Exception ex)
         {
             Logger.Error(ex, $"Error deleting playlist {playlistId}");
-            return false;
+            return Task.FromResult(false);
         }
     }
     
@@ -699,7 +699,7 @@ public class YouTubeMusicPlaylistService : IPlaylistService
             string title = playlistSong.Name?.ToString() ?? "Unknown Title";
             string artist = "Unknown Artist";
             string channelTitle = "Unknown";
-            string thumbnailUrl = null;
+            string thumbnailUrl = string.Empty;
             
             // Handle artists safely
             if (playlistSong.Artists != null)

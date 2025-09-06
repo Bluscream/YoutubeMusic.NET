@@ -170,7 +170,7 @@ public class YouTubePlaylistService : IPlaylistService
         }
     }
     
-    public async Task<bool> DeletePlaylistAsync(string playlistId, CancellationToken cancellationToken = default)
+    public Task<bool> DeletePlaylistAsync(string playlistId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -181,16 +181,16 @@ public class YouTubePlaylistService : IPlaylistService
             {
                 File.Delete(filePath);
                 Logger.Info($"Playlist {playlistId} deleted successfully");
-                return true;
+                return Task.FromResult(true);
             }
             
             Logger.Warn($"Playlist {playlistId} not found for deletion");
-            return false;
+            return Task.FromResult(false);
         }
         catch (Exception ex)
         {
             Logger.Error(ex, $"Error deleting playlist {playlistId}");
-            return false;
+            return Task.FromResult(false);
         }
     }
     
@@ -363,22 +363,22 @@ public class YouTubePlaylistService : IPlaylistService
         }
     }
     
-    private async Task<List<StreamingPlayerNET.Common.Models.Playlist>> LoadFromYouTubeApiAsync(CancellationToken cancellationToken = default)
+    private Task<List<StreamingPlayerNET.Common.Models.Playlist>> LoadFromYouTubeApiAsync(CancellationToken cancellationToken = default)
     {
         if (string.IsNullOrEmpty(_settings?.YouTubeApiKey))
-            return new List<StreamingPlayerNET.Common.Models.Playlist>();
+            return Task.FromResult(new List<StreamingPlayerNET.Common.Models.Playlist>());
             
         try
         {
             // This would require OAuth2 authentication for user's playlists
             // For now, we'll return an empty list as this requires user authentication
             Logger.Info("YouTube API user playlist loading requires OAuth2 authentication");
-            return new List<StreamingPlayerNET.Common.Models.Playlist>();
+            return Task.FromResult(new List<StreamingPlayerNET.Common.Models.Playlist>());
         }
         catch (Exception ex)
         {
             Logger.Error(ex, "Failed to load playlists from YouTube API");
-            return new List<StreamingPlayerNET.Common.Models.Playlist>();
+            return Task.FromResult(new List<StreamingPlayerNET.Common.Models.Playlist>());
         }
     }
     
@@ -521,7 +521,7 @@ public class YouTubePlaylistService : IPlaylistService
             
             do
             {
-                var url = $"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId={playlistId}&maxResults={maxResults}&key={_settings.YouTubeApiKey}";
+                var url = $"https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId={playlistId}&maxResults={maxResults}&key={_settings?.YouTubeApiKey}";
                 if (!string.IsNullOrEmpty(nextPageToken))
                     url += $"&pageToken={nextPageToken}";
                     

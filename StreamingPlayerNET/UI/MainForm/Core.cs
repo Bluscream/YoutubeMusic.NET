@@ -58,7 +58,7 @@ public partial class MainForm
             // Initialize Windows Media Service for system media controls
             try
             {
-                _windowsMediaService = new WindowsMediaService(_musicPlayerService, _configService, this.Handle);
+                _windowsMediaService = new WindowsMediaService(_musicPlayerService, _configService ?? throw new InvalidOperationException("Configuration service is not initialized"), this.Handle);
                 
                 // Wire up media command handling
                 _windowsMediaService.MediaCommandReceived += OnMediaCommandReceived;
@@ -75,7 +75,7 @@ public partial class MainForm
             {
                 try
                 {
-                    _globalHotkeys = new GlobalHotkeys(_musicPlayerService, _configService, this.Handle);
+                    _globalHotkeys = new GlobalHotkeys(_musicPlayerService, _configService ?? throw new InvalidOperationException("Configuration service is not initialized"), this.Handle);
                     
                     // Wire up media command handling for global hotkeys
                     _globalHotkeys.MediaCommandReceived += OnMediaCommandReceived;

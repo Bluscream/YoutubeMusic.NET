@@ -11,7 +11,6 @@ public class DownloadInfo : INotifyPropertyChanged
     private long _totalBytes;
     private DateTime _startTime;
     private TimeSpan _estimatedTimeRemaining;
-    private double _progressPercentage;
     private string _errorMessage = string.Empty;
 
     public string Title
