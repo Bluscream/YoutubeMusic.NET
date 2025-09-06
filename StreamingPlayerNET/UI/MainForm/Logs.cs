@@ -39,13 +39,11 @@ public partial class MainForm
     
     private void AdjustLogsListViewColumns()
     {
-        // Calculate proportional widths based on content
-        var totalWidth = logsListView.Width - 25; // Account for scrollbar
-        
-        logTimeColumn.Width = (int)(totalWidth * 0.10); // 10% for time
-        logLevelColumn.Width = (int)(totalWidth * 0.06); // 6% for level
-        logLoggerColumn.Width = (int)(totalWidth * 0.12); // 12% for logger
-        logMessageColumn.Width = (int)(totalWidth * 0.72); // 72% for message
+        // Use auto-sizing for better column width management
+        logTimeColumn.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+        logLevelColumn.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+        logLoggerColumn.AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+        logMessageColumn.AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);
     }
     
     private void OnLogEntryAdded(object? sender, LogEntry entry)

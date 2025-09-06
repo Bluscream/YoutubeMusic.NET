@@ -6,32 +6,24 @@ public partial class MainForm
 {
     private void AdjustListViewColumns(ListView listView)
     {
-        if (listView.Columns.Count != 4) return; // Expecting Title, Artist, Duration, Source
-        
         try
         {
-            // Set fixed width for duration and source columns (small)
-            listView.Columns[2].Width = 80; // Duration column
-            listView.Columns[3].Width = 100; // Source column
-            
-            // Calculate remaining width for Title and Artist columns
-            int availableWidth = listView.ClientSize.Width - 80 - 100 - SystemInformation.VerticalScrollBarWidth - 4;
-            
-            if (availableWidth > 200) // Ensure minimum usable width
+            if (listView.Columns.Count == 4) // Search, Queue, Playlist ListViews
             {
-                // Split remaining space: 60% Title, 40% Artist
-                int titleWidth = (int)(availableWidth * 0.6);
-                int artistWidth = availableWidth - titleWidth;
-                
-                listView.Columns[0].Width = titleWidth;   // Title
-                listView.Columns[1].Width = artistWidth;  // Artist
+                // Use auto-sizing for better column width management
+                listView.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); // Title
+                listView.Columns[1].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); // Artist
+                listView.Columns[2].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); // Duration
+                listView.Columns[3].AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);    // Source (fill remaining)
             }
-            else
+            else if (listView.Columns.Count == 5) // Downloads ListView
             {
-                // Fallback to equal split if very narrow
-                int equalWidth = availableWidth / 2;
-                listView.Columns[0].Width = equalWidth;   // Title
-                listView.Columns[1].Width = equalWidth;   // Artist
+                // Use auto-sizing for downloads ListView
+                listView.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); // Title
+                listView.Columns[1].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); // Artist
+                listView.Columns[2].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); // Status
+                listView.Columns[3].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent); // Progress
+                listView.Columns[4].AutoResize(ColumnHeaderAutoResizeStyle.HeaderSize);    // Time (fill remaining)
             }
         }
         catch (Exception ex)
