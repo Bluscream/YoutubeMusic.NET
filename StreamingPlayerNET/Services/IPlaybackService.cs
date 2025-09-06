@@ -8,6 +8,7 @@ public interface IPlaybackService
     event EventHandler<TimeSpan>? PositionChanged;
     event EventHandler? PlaybackCompleted;
     event EventHandler<PlaybackErrorEventArgs>? PlaybackError;
+    event EventHandler<float>? AudioLevelChanged;
     
     Task PlayAsync(Song song, CancellationToken cancellationToken = default);
     Task PlayAsync(AudioStreamInfo streamInfo, CancellationToken cancellationToken = default);

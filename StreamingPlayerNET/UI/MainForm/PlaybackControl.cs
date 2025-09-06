@@ -187,6 +187,10 @@ public partial class MainForm
                 // Set seek bar to muted color when paused/stopped
                 seekBar.BackColor = Color.LightGray;
                 seekBar.ForeColor = Color.Gray;
+                
+                // Reset VU meter when stopped or paused
+                vuMeterProgressBar.Value = 0;
+                vuMeterProgressBar.ForeColor = Color.Green;
                 break;
         }
         

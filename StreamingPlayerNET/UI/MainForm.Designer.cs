@@ -198,6 +198,7 @@ partial class MainForm
         remainingTimeLabel = new Label();
         statusStrip = new StatusStrip();
         downloadProgressBar = new ToolStripProgressBar();
+        vuMeterProgressBar = new ToolStripProgressBar();
         statusLabel = new ToolStripStatusLabel();
         timingLabel = new ToolStripStatusLabel();
         volumeLabel = new ToolStripStatusLabel();

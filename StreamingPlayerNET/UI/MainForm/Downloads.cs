@@ -275,7 +275,7 @@ public partial class MainForm
             // Use the actual downloads list instead of creating a generic entry
             var currentDownloads = new List<DownloadInfo>(_downloads);
             
-            Logger.Debug($"Updating downloads display with {currentDownloads.Count} downloads");
+            // Logger.Debug($"Updating downloads display with {currentDownloads.Count} downloads");
             foreach (var download in currentDownloads)
             {
                 Logger.Debug($"  - {download.Title} by {download.Artist}: {download.Status} ({download.FormattedProgress})");
