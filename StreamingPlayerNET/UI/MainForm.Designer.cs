@@ -43,6 +43,7 @@ partial class MainForm
     private ToolStripMenuItem viewMenu;
     private ToolStripMenuItem showPlaylistsMenuItem;
     private ToolStripMenuItem showSearchMenuItem;
+    private ToolStripMenuItem showStatusBarMenuItem;
     private ToolStripMenuItem themeMenu;
     private ToolStripMenuItem helpMenu;
     private ToolStripMenuItem aboutMenuItem;
@@ -102,7 +103,9 @@ partial class MainForm
     private Label currentSongLabel;
     private ProgressBar seekBar;
     private Label elapsedTimeLabel;
+    private Label currentTimeLabel;
     private Label remainingTimeLabel;
+    private Label totalTimeLabel;
 
     private StatusStrip statusStrip;
     private ToolStripStatusLabel statusLabel;
@@ -139,6 +142,7 @@ partial class MainForm
         viewMenu = new ToolStripMenuItem();
         showPlaylistsMenuItem = new ToolStripMenuItem();
         showSearchMenuItem = new ToolStripMenuItem();
+        showStatusBarMenuItem = new ToolStripMenuItem();
         themeMenu = new ToolStripMenuItem();
         settingsMenu = new ToolStripMenuItem();
         helpMenu = new ToolStripMenuItem();
@@ -194,7 +198,9 @@ partial class MainForm
         seekBarPanel = new TableLayoutPanel();
         seekBar = new ProgressBar();
         elapsedTimeLabel = new Label();
+        currentTimeLabel = new Label();
         remainingTimeLabel = new Label();
+        totalTimeLabel = new Label();
         statusStrip = new StatusStrip();
         downloadProgressBar = new ToolStripProgressBar();
         statusLabel = new ToolStripStatusLabel();
@@ -345,7 +351,7 @@ partial class MainForm
         // 
         // viewMenu
         // 
-        viewMenu.DropDownItems.AddRange(new ToolStripItem[] { showPlaylistsMenuItem, showSearchMenuItem });
+        viewMenu.DropDownItems.AddRange(new ToolStripItem[] { showPlaylistsMenuItem, showSearchMenuItem, showStatusBarMenuItem });
         viewMenu.Name = "viewMenu";
         viewMenu.Size = new Size(44, 20);
         viewMenu.Text = "&View";
@@ -367,6 +373,15 @@ partial class MainForm
         showSearchMenuItem.Name = "showSearchMenuItem";
         showSearchMenuItem.Size = new Size(148, 22);
         showSearchMenuItem.Text = "Show &Search";
+        // 
+        // showStatusBarMenuItem
+        // 
+        showStatusBarMenuItem.Checked = true;
+        showStatusBarMenuItem.CheckOnClick = true;
+        showStatusBarMenuItem.CheckState = CheckState.Checked;
+        showStatusBarMenuItem.Name = "showStatusBarMenuItem";
+        showStatusBarMenuItem.Size = new Size(148, 22);
+        showStatusBarMenuItem.Text = "Show &Status Bar";
         // 
         // themeMenu
         // 
@@ -678,7 +693,7 @@ partial class MainForm
         // logMessageColumn
         // 
         logMessageColumn.Text = "Message";
-        logMessageColumn.Width = 650;
+        logMessageColumn.Width = -2;
         // 
         // playerPanel
         // 
@@ -721,7 +736,7 @@ partial class MainForm
         playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
         playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
         playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
-        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
         playbackControlsPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
         playbackControlsPanel.Controls.Add(playPauseButton, 0, 0);
         playbackControlsPanel.Controls.Add(stopButton, 1, 0);
@@ -806,13 +821,17 @@ partial class MainForm
         // 
         // seekBarPanel
         // 
-        seekBarPanel.ColumnCount = 3;
+        seekBarPanel.ColumnCount = 5;
         seekBarPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
+        seekBarPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 70F));
         seekBarPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+        seekBarPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 70F));
         seekBarPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
         seekBarPanel.Controls.Add(elapsedTimeLabel, 0, 0);
-        seekBarPanel.Controls.Add(seekBar, 1, 0);
-        seekBarPanel.Controls.Add(remainingTimeLabel, 2, 0);
+        seekBarPanel.Controls.Add(currentTimeLabel, 1, 0);
+        seekBarPanel.Controls.Add(seekBar, 2, 0);
+        seekBarPanel.Controls.Add(remainingTimeLabel, 3, 0);
+        seekBarPanel.Controls.Add(totalTimeLabel, 4, 0);
         seekBarPanel.Dock = DockStyle.Fill;
         seekBarPanel.Name = "seekBarPanel";
         seekBarPanel.Padding = new Padding(10, 1, 10, 1);
@@ -851,6 +870,28 @@ partial class MainForm
         remainingTimeLabel.TabIndex = 3;
         remainingTimeLabel.Text = "00:00";
         remainingTimeLabel.TextAlign = ContentAlignment.MiddleRight;
+        // 
+        // currentTimeLabel
+        // 
+        currentTimeLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        currentTimeLabel.AutoSize = true;
+        currentTimeLabel.Dock = DockStyle.Fill;
+        currentTimeLabel.Name = "currentTimeLabel";
+        currentTimeLabel.Size = new Size(34, 15);
+        currentTimeLabel.TabIndex = 4;
+        currentTimeLabel.Text = "00:00:00";
+        currentTimeLabel.TextAlign = ContentAlignment.MiddleCenter;
+        // 
+        // totalTimeLabel
+        // 
+        totalTimeLabel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+        totalTimeLabel.AutoSize = true;
+        totalTimeLabel.Dock = DockStyle.Fill;
+        totalTimeLabel.Name = "totalTimeLabel";
+        totalTimeLabel.Size = new Size(34, 15);
+        totalTimeLabel.TabIndex = 5;
+        totalTimeLabel.Text = "00:00:00";
+        totalTimeLabel.TextAlign = ContentAlignment.MiddleLeft;
         // 
         // statusStrip
         // 

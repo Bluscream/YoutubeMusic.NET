@@ -579,6 +579,7 @@ public partial class MainForm
         // View menu
         showPlaylistsMenuItem.CheckedChanged += (s, e) => TogglePlaylistsVisibility();
         showSearchMenuItem.CheckedChanged += (s, e) => ToggleSearchVisibility();
+        showStatusBarMenuItem.CheckedChanged += (s, e) => ToggleStatusBarVisibility();
         
         // Setup theme menu programmatically
         SetupThemeMenu();

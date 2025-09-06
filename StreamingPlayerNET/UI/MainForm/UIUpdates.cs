@@ -256,6 +256,11 @@ public partial class MainForm
     {
         ToggleTabVisibility(searchTabPage, showSearchMenuItem.Checked);
     }
+
+    private void ToggleStatusBarVisibility()
+    {
+        statusStrip.Visible = showStatusBarMenuItem.Checked;
+    }
     
     /// <summary>
     /// Highlights the currently playing song in the specified ListView
