@@ -678,17 +678,17 @@ partial class MainForm
         // logTimeColumn
         // 
         logTimeColumn.Text = "Time";
-        logTimeColumn.Width = 100;
+        logTimeColumn.Width = 80;
         // 
         // logLevelColumn
         // 
         logLevelColumn.Text = "Level";
-        logLevelColumn.Width = 80;
+        logLevelColumn.Width = 60;
         // 
         // logLoggerColumn
         // 
         logLoggerColumn.Text = "Logger";
-        logLoggerColumn.Width = 150;
+        logLoggerColumn.Width = 120;
         // 
         // logMessageColumn
         // 
