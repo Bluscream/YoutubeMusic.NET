@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>1.0.3.1</Version>
+    <AssemblyVersion>1.0.3</AssemblyVersion>
+    <FileVersion>1.0.3</FileVersion>
+    <Title>YouTube Session Generator</Title>
+    <Authors>IcySnex</Authors>
+    <Company />
+    <Description>Generate valid trusted sessions for YouTube including VisitorData, PoTokens &amp; RolloutTokens.</Description>
+    <PackageProjectUrl>https://github.com/IcySnex/YouTubeSessionGenerator</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryUrl>https://github.com/IcySnex/YouTubeSessionGenerator/tree/main</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>youtube;session-generator;botguard;visitordata;potoken;rollouttoken</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReleaseNotes>
+			- Updated confusing names/XML docs
+			- Added net10 support (multi-target)
+			- Updated packages
+		</PackageReleaseNotes>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="YouTubeSessionGenerator.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.1" />
+  </ItemGroup>
+</Project>
