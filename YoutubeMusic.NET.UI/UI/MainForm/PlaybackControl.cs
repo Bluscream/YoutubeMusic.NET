@@ -76,12 +76,10 @@ public partial class MainForm
     {
         if (_musicPlayerService.IsPlaying)
         {
-            SimpleLogger.Info("Pausing playback");
             _musicPlayerService.Pause();
         }
         else if (_musicPlayerService.IsPaused)
         {
-            SimpleLogger.Info("Resuming paused playback");
             _musicPlayerService.Resume();
         }
         else if (searchListView.SelectedItems.Count > 0)

@@ -165,12 +165,10 @@ public class GlobalHotkeys : IDisposable
                     // Toggle play/pause based on current state
                     if (_musicPlayerService.IsPlaying)
                     {
-                        SimpleLogger.Info("Global hotkey: Pausing playback");
                         _musicPlayerService.Pause();
                     }
                     else if (_musicPlayerService.IsPaused)
                     {
-                        SimpleLogger.Info("Global hotkey: Resuming paused playback");
                         _musicPlayerService.Resume();
                     }
                     else

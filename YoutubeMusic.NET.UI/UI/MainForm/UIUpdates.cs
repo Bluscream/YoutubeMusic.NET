@@ -22,8 +22,6 @@ public partial class MainForm
             listView.Items.Add(item);
         }
         
-        // Adjust columns after populating
-        AdjustListViewColumns(listView);
         
         // Apply highlighting for currently playing song
         HighlightCurrentlyPlayingSong(listView);
@@ -48,11 +46,6 @@ public partial class MainForm
     private void UpdatePlaylistDisplay(List<Song> songs)
     {
         PopulateListViewWithSongs(playlistListView, songs);
-    }
-
-    private void UpdateStatus(string message)
-    {
-        SimpleLogger.Info($"Status: {message}");
     }
 
     private void UpdateWindowTitle(Song? song, YoutubeMusic.NET.Common.Models.PlaybackState state)
@@ -235,7 +228,7 @@ public partial class MainForm
 
     private void ToggleStatusBarVisibility()
     {
-        statusStrip.Visible = showStatusBarMenuItem.Checked;
+        statusPanel.Visible = showStatusBarMenuItem.Checked;
     }
     
     /// <summary>

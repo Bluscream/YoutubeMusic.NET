@@ -65,21 +65,26 @@ public partial class MainForm
         
 
         
-        // StatusStrip events (for seeking)
-        statusStrip.MouseDown += StatusStrip_MouseDown;
-        if (seekBar != null && seekBar.ProgressBar != null)
-        {
-            seekBar.ProgressBar.MouseDown += (s, e) => {
-                // Translate the click coordinate to statusStrip coordinate space
-                var stripPoint = statusStrip.PointToClient(seekBar.ProgressBar.PointToScreen(e.Location));
-                StatusStrip_MouseDown(statusStrip, new MouseEventArgs(e.Button, e.Clicks, stripPoint.X, stripPoint.Y, e.Delta));
-            };
-        }
+        // SeekBar events (for seeking)
+        seekBar.MouseDown += (s, e) => {
+            if (seekBar.Width <= 0) return;
+            
+            // Calculate the percentage clicked relative to the seekBar
+            var clickPercentage = (double)e.X / seekBar.Width;
+            
+            var duration = _musicPlayerService?.GetTotalDuration();
+            if (duration.HasValue && duration.Value.TotalSeconds > 0)
+            {
+                var newPosition = TimeSpan.FromSeconds(duration.Value.TotalSeconds * clickPercentage);
+                _musicPlayerService?.SetPosition(newPosition);
+                SimpleLogger.Debug($"Seeked to {newPosition:mm\\:ss} ({clickPercentage:P0} of song)");
+            }
+        };
         
         // Timing label click event
         timingLabel.Click += OnTimingLabelClick;
-        timingLabel.MouseEnter += (s, e) => statusStrip.Cursor = Cursors.Hand;
-        timingLabel.MouseLeave += (s, e) => statusStrip.Cursor = Cursors.Default;
+        timingLabel.MouseEnter += (s, e) => timingLabel.Cursor = Cursors.Hand;
+        timingLabel.MouseLeave += (s, e) => timingLabel.Cursor = Cursors.Default;
         
         // Menu events
         SetupMenuEventHandlers();
@@ -89,10 +94,6 @@ public partial class MainForm
         this.KeyDown += Form1_KeyDown;
         
         // Form and control resize events
-        this.Resize += OnFormResize;
-        searchListView.Resize += OnSearchListViewResize;
-        queueListView.Resize += OnQueueListViewResize;
-        playlistListView.Resize += OnPlaylistListViewResize;
 
     }
 
@@ -150,37 +151,6 @@ public partial class MainForm
         }
     }
 
-    private void StatusStrip_MouseDown(object? sender, MouseEventArgs e)
-    {
-        try
-        {
-            SimpleLogger.Debug($"StatusStrip clicked at {e.Location}. seekBar bounds: {seekBar.Bounds}");
-            // Check if the click is within the seekBar bounds
-            if (seekBar.Bounds.Contains(e.Location))
-            {
-                if (seekBar.Width <= 0) return;
-                
-                // Calculate the percentage clicked relative to the seekBar item
-                var clickX = e.X - seekBar.Bounds.X;
-                var clickPercentage = (double)clickX / seekBar.Width;
-                
-                var duration = _musicPlayerService?.GetTotalDuration();
-                if (duration.HasValue && duration.Value.TotalSeconds > 0)
-                {
-                    var newPosition = TimeSpan.FromSeconds(duration.Value.TotalSeconds * clickPercentage);
-                    
-                    // Set the new position
-                    _musicPlayerService?.SetPosition(newPosition);
-                    
-                    SimpleLogger.Debug($"Seeked to {newPosition:mm\\:ss} ({clickPercentage:P0} of song)");
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            SimpleLogger.Debug(ex, "Error during seek operation from status strip");
-        }
-    }
 
     private void OnTimingLabelClick(object? sender, EventArgs e)
     {
