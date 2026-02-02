@@ -1,1 +1,1 @@
-powershell -ExecutionPolicy Bypass -Command "build.ps1" -build -publish -git -Github -Release -Debug -csproj ytmNET.csproj -sln ytmNET.sln -repo ytm-ui-dotnet %*
+powershell -ExecutionPolicy Bypass -Command "build.ps1" -build -publish -git -Github -Release -Debug -csproj YoutubeMusic.NET.UI\YoutubeMusic.NET.UI.csproj -sln YoutubeMusic.NET.sln -repo YoutubeMusic.NET %*
