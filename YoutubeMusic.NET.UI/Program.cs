@@ -20,12 +20,19 @@ static class Program
     ///  The main entry point for the application.
     /// </summary>
     [STAThread]
-    static void Main()
+    static void Main(string[] args)
     {
         try
         {
             // Allocate console window
+#if DEBUG
             AllocConsole();
+#else
+            if (args.Any(a => a.Equals("/console", StringComparison.OrdinalIgnoreCase) || a.Equals("--console", StringComparison.OrdinalIgnoreCase)))
+            {
+                AllocConsole();
+            }
+#endif
             SimpleLogger.Info("=== YoutubeMusic.NET Console ===");
             
             // Initialize configuration service first
