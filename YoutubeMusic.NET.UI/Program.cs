@@ -55,9 +55,9 @@ static class Program
         }
         catch (Exception ex)
         {
+            AllocConsole();
             SimpleLogger.Fatal(ex, "Fatal error during application startup");
             // Allocate console to ensure we can see the error if it wasn't already allocated
-            AllocConsole();
             Console.WriteLine(ex.ToString());
             
             MessageBox.Show($"Fatal error during startup:\n\n{ex}", "Application Error", 
